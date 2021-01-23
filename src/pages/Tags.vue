@@ -1,0 +1,13 @@
+<template>
+  <q-page padding>
+    <div>
+        tags
+    </div>
+  </q-page>
+</template>
+
+<script>
+export default {
+  // name: 'PageName',
+}
+</script>
