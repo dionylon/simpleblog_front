@@ -1,19 +1,11 @@
 <template>
-  <q-layout view="hHh Lpr lff">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          round
-          dense
-          icon="menu"
-          class="xs"
-          @click="drawerLeft = !drawerLeft"
-        />
+  <q-layout view="hHh Lpr lFF">
+    <q-header elevated reveal>
+      <q-toolbar class="tool-bar">
         <q-toolbar-title class="gt-xs" style="max-width: 150px;">
           Dionys
         </q-toolbar-title>
-        <q-tabs v-model="tab" align="left">
+        <q-tabs v-model="tab" class="gt-xs" align="left">
           <q-route-tab exact name="all" label="文章" :to="{ name: 'all' }" />
           <q-route-tab exact name="tags" label="标签" :to="{ name: 'tags' }" />
         </q-tabs>
@@ -24,7 +16,7 @@
           standout
           v-model="text"
           input-class="text-left"
-          class="q-ml-md gt-xs"
+          class="q-ml-md"
         >
           <template v-slot:append>
             <q-icon v-if="text === ''" name="search" />
@@ -42,27 +34,18 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="drawerLeft" class="black" elevated>
-      <q-input
-        dark
-        dense
-        standout
-        style="max-height:30px;"
-        v-model="text"
-        input-class="text-left"
-        class="q-ml-md gt-xs"
-      >
-        <template v-slot:append>
-          <q-icon v-if="text === ''" name="search" />
-          <q-icon
-            v-else
-            name="clear"
-            class="cursor-pointer"
-            @click="text = ''"
-          />
-        </template>
-      </q-input>
-    </q-drawer>
+    <q-footer elevated reveal class="xs">
+      <q-toolbar class="tool-bar items-between">
+        <q-tabs v-model="tab" align="center">
+          <q-route-tab exact name="all" label="文章" :to="{ name: 'all' }" />
+          <q-route-tab exact name="tags" label="标签" :to="{ name: 'tags' }" />
+        </q-tabs>
+        <q-space />
+        <q-toolbar-title>
+          Dionys
+        </q-toolbar-title>
+      </q-toolbar>
+    </q-footer>
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -75,9 +58,14 @@ export default {
   data() {
     return {
       tab: "all",
-      drawerLeft: false,
-      text: ""
+      text: "",
+      text2: ""
     };
   }
 };
 </script>
+<style scoped>
+.tool-bar {
+  background-image: linear-gradient(to right, #61bfad, #167c80);
+}
+</style>

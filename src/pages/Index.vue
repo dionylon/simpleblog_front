@@ -1,7 +1,7 @@
 <template>
-  <q-page class="flex items-center column bg-white">
+  <q-page class="flex items-center column bg">
     <div>
-      <intro-panel v-for="n in 50" :key="n"/>
+      <intro-panel v-for="n in 10" :key="n"/>
     </div>
   </q-page>
 </template>

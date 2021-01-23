@@ -1,7 +1,7 @@
 <template>
   <div>
-    <q-card class="my-card" flat bordered>
-      <q-card-section class="" horizontal>
+    <q-card class="my-card bg" flat bordered>
+      <q-card-section horizontal>
         <q-card-section class="q-pt-sm">
           <div class="text-h5 q-mt-sm q-mb-xs  max-line-2">
             {{ article.title }}
