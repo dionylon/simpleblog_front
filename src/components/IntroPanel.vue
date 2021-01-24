@@ -3,9 +3,13 @@
     <q-card class="my-card bg" flat bordered>
       <q-card-section horizontal>
         <q-card-section class="q-pt-sm">
-          <div class="text-h5 q-mt-sm q-mb-xs  max-line-2">
-            {{ article.title }}
-          </div>
+          <router-link
+            tag="a"
+            class="text-h5 q-mt-sm q-mb-xs  max-line-2 title-link"
+            :to="{ name: 'article', query: { id: article.id } }"
+            >{{ article.title }}
+          </router-link>
+
           <div class="text-overline">{{ article.createdTime }}</div>
           <div class="text-caption text-grey  max-line-3">
             {{ article.content }}
@@ -31,6 +35,7 @@ export default {
   data() {
     return {
       article: {
+        id: 1,
         title:
           "如何看待画师乌合麒麟新作《命令与征服》？画师乌合麒麟新作《命令与画师乌合麒麟新作《命令与征服》？征服》？画师乌合麒麟新作《命令与征服》？",
         createdTime: "2020-11-1",
@@ -42,21 +47,11 @@ export default {
 };
 </script>
 <style scoped>
-.max-line-2 {
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-}
-.max-line-3 {
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-}
 .my-card {
   max-width: 700px;
+}
+.title-link {
+  text-decoration: none;
+  color: #111111;
 }
 </style>
