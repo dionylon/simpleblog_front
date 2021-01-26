@@ -1,18 +1,24 @@
 /* app global css */
-.bg{
-    background: #fffef5 ;
+.bg {
+  background: #fffef5;
+}
+.tool-bar {
+  background-image: linear-gradient(to right, #61bfad, #167c80);
+}
+.tool-bar2 {
+  background-image: linear-gradient(to right, #7760dd, #4547f5);
 }
 .max-line-2 {
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-  }
-  .max-line-3 {
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-  }
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+}
+.max-line-3 {
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+}

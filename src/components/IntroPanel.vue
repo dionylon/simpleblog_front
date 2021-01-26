@@ -32,16 +32,9 @@
 <script>
 export default {
   // name: 'ComponentName',
+  props: ['article'],
   data() {
     return {
-      article: {
-        id: 1,
-        title:
-          "如何看待画师乌合麒麟新作《命令与征服》？画师乌合麒麟新作《命令与画师乌合麒麟新作《命令与征服》？征服》？画师乌合麒麟新作《命令与征服》？",
-        createdTime: "2020-11-1",
-        content:
-          "乌合麒麟这幅画乍一看不如之前的有冲击力，尤其是游戏画面对没玩过游戏的很劝退，但仔细一看就会发现，整幅画细节爆炸，涵义非常丰富。Entity callbacks provide integration points with both synchronous and reactive APIs to guarantee in-order execution at well-defined checkpoints within the processing chain, returning a potentially modified entity or an reactive wrapper type.Entity callbacks are typically separated by API type. This separation means that a synchronous API considers only synchronous entity callbacks and a reactive implementation considers only reactive entity callback"
-      }
     };
   }
 };

@@ -125,9 +125,7 @@ export default {
 };
 </script>
 <style scoped>
-.tool-bar {
-  background-image: linear-gradient(to right, #61bfad, #167c80);
-}
+
 .my-emoticon {
   vertical-align: middle;
   height: 2em;
