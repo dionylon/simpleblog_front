@@ -1,6 +1,6 @@
 # MySite
 
-personal site
+simple blog frontend
 
 ## Install the dependencies
 ```bash
