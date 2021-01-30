@@ -1,27 +1,37 @@
 <template>
-  <q-page padding class="flex items-center column bg">
-    <q-card class="bg q-pa-sm" style="max-width: 700px">
-      <q-item>
+  <q-page class="flex items-center column bg">
+    <q-card class="bg q-pa-sm" style="max-width: 700px; width:100%;">
+      <q-item style="width: 100%">
         <q-item-section avatar>
-          <q-skeleton type="QAvatar" v-if="loading" />
-          <q-avatar rounded class="q-ml-md">
+          <q-skeleton type="QAvatar" v-show="loading" />
+          <q-avatar rounded class="q-ml-md" v-show="!loading">
             <img src="https://cdn.quasar.dev/img/avatar.png" />
           </q-avatar>
         </q-item-section>
 
         <q-item-section>
           <q-item-label>
-            <q-skeleton type="text" v-if="loading" />
+            <q-skeleton
+              width="70%"
+              height="70px"
+              type="text"
+              v-show="loading"
+            />
             <div class="text-h5">{{ article.title }}</div>
           </q-item-label>
           <q-item-label caption>
-            <q-skeleton type="text" v-if="loading" />
+            <q-skeleton
+              width="50%"
+              height="20px"
+              type="text"
+              v-show="loading"
+            />
             <div class="text-body2">{{ article.createdTime }}</div>
           </q-item-label>
         </q-item-section>
       </q-item>
 
-      <q-skeleton height="200px" square v-if="loading" />
+      <q-skeleton height="100px" width="100%" square v-show="loading" />
       <q-item>
         <div class="content">{{ article.content }}</div>
       </q-item>
@@ -40,15 +50,27 @@ export default {
   data() {
     return {
       loading: false,
-      article: {
-        id: 1,
-        title:
-          "如何看待画师乌合麒麟新作《命令与征服》？画师乌合麒麟新作《命令与画师乌合麒麟新作《命令与征服》？征服》？画师乌合麒麟新作《命令与征服》？",
-        createdTime: "2020-11-1",
-        content:
-          "乌合麒麟这幅画乍一看不如之前的有冲击力，尤其是游戏画面对没玩过游戏的很劝退，但仔细一看就会发现，整幅画细节爆炸，涵义非常丰富。Entity callbacks provide integration points with both synchronous and reactive APIs to guarantee in-order execution at well-defined checkpoints within the processing chain, returning a potentially modified entity or an reactive wrapper type.Entity callbacks are typically separated by API type. This separation means that a synchronous API considers only synchronous entity callbacks and a reactive implementation considers only reactive entity callback"
-      }
+      article: {}
     };
+  },
+  mounted() {
+    this.loadArticle();
+  },
+  methods: {
+    loadArticle() {
+      const id = this.$route.query.id;
+      this.loading = true;
+      // 加载文章
+      this.$axios
+        .get("/api/article/" + id)
+        .then(res => {
+          this.article = res.data;
+        })
+        .catch(e => console.log(e))
+        .finally(() => {
+          this.loading = false;
+        });
+    }
   }
 };
 </script>

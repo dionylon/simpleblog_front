@@ -1,6 +1,6 @@
 <template>
   <q-page class="bg">
-    <div>
+    <div main-panel>
         tags
     </div>
   </q-page>

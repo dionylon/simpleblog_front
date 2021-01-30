@@ -83,13 +83,14 @@
       <q-checkbox
         color="cyan"
         style="max-width:100px;"
-        v-model="articleInput.isOpen"
-        label="是否公开"
+        v-model="articleInput.hidden"
+        label="隐藏文章"
       />
       <q-btn
         label="保存"
         class="tool-bar text-white"
         style="max-width:100px;"
+        @click="save"
       />
     </div>
   </div>
@@ -104,13 +105,29 @@ export default {
       articleInput: {
         title: "",
         content: "",
-        isOpen: true
+        hidden: false
       }
     };
+  },
+  methods: {
+    save() {
+      let url = "/api/article";
+      let body = this.articleInput;
+      if (this.article != undefined && this.article.id != undefined) {
+        url += this.article.id;
+        body.id = this.article.id;
+      }
+      this.$axios
+        .post(url, body)
+        .then(res => console.log(res))
+        .catch(e => console.log(e))
+        .finally();
+    }
   },
   mounted() {
     if (this.article != undefined && this.article != null) {
       this.articleInput = this.article;
+      console.log(this.articleInput);
     }
   }
 };

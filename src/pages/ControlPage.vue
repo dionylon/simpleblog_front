@@ -1,24 +1,26 @@
 <template>
   <q-page class="q-pa-sm" style="margin:auto; max-width: 700px;">
-    <q-card class="my-card" v-for="i in 5" :key="i">
+    <q-card class="my-card" v-for="article in articles" :key="article.id">
       <q-card-section class="bg-white text-black">
-        <div class="text-h6">{{ dummyArticle.title }}</div>
-        <div class="text-subtitle2">{{ dummyArticle.createdTime }}</div>
+        <div class="text-h6">{{ article.title }}</div>
+        <div class="text-subtitle2">{{ article.createdTime }}</div>
       </q-card-section>
 
       <q-separator />
 
       <q-card-actions align="left">
-        <q-btn flat @click="handleUpdate">修改</q-btn>
+        <q-btn flat @click="handleUpdate(article)">修改</q-btn>
         <q-btn flat color="red">删除</q-btn>
       </q-card-actions>
     </q-card>
     <div class="q-pt-md">
       <q-pagination
         class="flex-center"
-        v-model="current"
-        :max="5"
+        v-model="currentPage"
+        :max="totalPages"
+        :max-pages="this.size"
         :input="true"
+        @input="handlePage()"
       >
       </q-pagination>
     </div>
@@ -49,20 +51,41 @@ export default {
     return {
       current: 1,
       showArticleDialog: false,
-      dummyArticle: {
-        id: 1,
-        title: "如何写出好的代码",
-        content: "世上无难事，只要肯放弃",
-        createdTime: "2020-1-1",
-        isOpen: true
-      },
+      dummyArticle: {},
+      currentPage: 1,
+      size: 10,
+      totalPages: 2,
       articles: []
     };
   },
+  mounted() {
+    this.loadingArticles();
+  },
   methods: {
-    handleUpdate() {
+    loadingArticles() {
+      this.loading = true;
+      this.$axios
+        .get("/api/article", {
+          params: {
+            page: this.currentPage - 1,
+            size: this.size,
+            sort: "createdTime,desc"
+          }
+        })
+        .then(res => {
+          this.articles = res.data.content;
+          this.totalPages = res.data.totalPages;
+          console.log(res);
+        })
+        .catch(e => console.log(e))
+        .finally((this.loading = false));
+    },
+    handleUpdate(article) {
       this.showArticleDialog = true;
-      console.log("update");
+      this.dummyArticle = article;
+    },
+    handlePage() {
+      this.loadingArticles();
     }
   }
 };

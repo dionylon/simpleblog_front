@@ -3,7 +3,14 @@
     <q-header elevated reveal>
       <q-toolbar class="tool-bar">
         <q-toolbar-title class="gt-xs" style="max-width: 150px;">
-          {{ user.name }}
+          <router-link
+            tag="a"
+            active-class="text-white"
+            class="text-h5 q-mt-sm q-mb-xs  max-line-2 title-link"
+            style="text-decoration: none; "
+            to="/"
+            >{{ user.name }}
+          </router-link>
         </q-toolbar-title>
         <q-tabs v-model="tab" class="gt-xs" align="left">
           <q-route-tab exact name="all" label="文章" :to="{ name: 'all' }" />
@@ -14,18 +21,18 @@
           dark
           dense
           standout
-          v-model="text"
+          v-model="searchInput"
           input-class="text-left"
           class="q-ml-md"
         >
           <template v-slot:append>
-            <q-icon v-if="text === ''" name="search" />
             <q-icon
-              v-else
-              name="clear"
+              v-if="searchInput !== ''"
+              name="close"
+              @click="searchInput = ''"
               class="cursor-pointer"
-              @click="text = ''"
             />
+            <q-btn round dense flat icon="search" @click="handleSearch" />
           </template>
         </q-input>
         <q-avatar rounded class="q-ml-md" @click="showUserCard = true">
@@ -98,7 +105,14 @@
         </q-tabs>
         <q-space />
         <q-toolbar-title>
-          {{ user.name }}
+          <router-link
+            tag="a"
+            active-class="text-white"
+            class="text-h5 q-mt-sm q-mb-xs  max-line-2 title-link"
+            style="text-decoration: none; "
+            to="/"
+            >{{ user.name }}
+          </router-link>
         </q-toolbar-title>
       </q-toolbar>
     </q-footer>
@@ -114,18 +128,36 @@ export default {
   data() {
     return {
       tab: "all",
-      text: "",
-      text2: "",
+      searchInput: "",
       showUserCard: false,
       user: {
         name: "Dionys"
       }
     };
+  },
+  methods: {
+    handleSearch() {
+      console.log(this.searchInput);
+      if (this.searchInput == "") return;
+      this.$axios
+        .get("/api/search", {
+          params: {
+            q: this.searchInput.trim().toLowerCase()
+          }
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(e => console.log(e))
+        .finally();
+    },
+    backToIndex() {
+      this.$route.replace("/");
+    }
   }
 };
 </script>
 <style scoped>
-
 .my-emoticon {
   vertical-align: middle;
   height: 2em;
